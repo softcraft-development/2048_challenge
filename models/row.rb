@@ -1,3 +1,5 @@
+require "tile"
+
 class Row
   TILE_COUNT = 4
   
