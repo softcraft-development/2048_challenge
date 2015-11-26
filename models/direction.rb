@@ -1,6 +1,7 @@
 require "cell_set"
 
 class Direction
+  attr_reader :cell_sets
   def initialize(cell_sets)
     @cell_sets = cell_sets
   end

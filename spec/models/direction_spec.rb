@@ -26,8 +26,8 @@ describe Direction do
     end
     
     it "reverses the order of the cells in the cell sets" do
-      result.instance_variable_get(:@cell_sets).each_with_index do |cell_set, index|
-        original_cell_set = subject.instance_variable_get(:@cell_sets)[index]
+      result.cell_sets.each_with_index do |cell_set, index|
+        original_cell_set = subject.cell_sets[index]
         expect(cell_set.cells).to eq(original_cell_set.cells.reverse)
       end
     end
