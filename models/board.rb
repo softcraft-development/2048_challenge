@@ -1,3 +1,5 @@
+require "row"
+
 class Board
   ROW_COUNT = 4
   TILE_COUNT = ROW_COUNT * Row::TILE_COUNT
