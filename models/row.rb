@@ -4,7 +4,7 @@ class Row
   TILE_COUNT = 4
   
   def initialize
-    @tiles = TILE_COUNT.times {|counter| Tile.new }
+    @tiles = TILE_COUNT.times.map {|counter| Tile.new }
   end
   
   def tile(tile_number)
