@@ -1,5 +1,7 @@
 class Board
+  ROW_COUNT = 4
+  
   def initialize()
-    @rows = 4.times.map{|counter| Row.new }
+    @rows = ROW_COUNT.times.map{|counter| Row.new }
   end
 end
