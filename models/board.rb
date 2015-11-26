@@ -18,13 +18,8 @@ class Board
   end
   
   def initialize_board
-    INITIAL_CELL_COUNT.times do |initial_cell|
-      cell_number = rand(CELL_COUNT)
-      begin 
-        t = cell(cell_number)
-      end until (t.empty?)
-      
-      t.generate_tile
+    empty_cells.sample(INITIAL_CELL_COUNT).each do |cell|
+      cell.generate_tile
     end
   end
 
