@@ -7,6 +7,7 @@ class Board
   CELL_COUNT = ROW_COUNT * COLUMN_COUNT
   INITIAL_CELL_COUNT = 2
   
+  attr_reader :cells
   def initialize()
     @cells = CELL_COUNT.times.map { Cell.new }
   end
