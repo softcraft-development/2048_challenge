@@ -1,4 +1,5 @@
 require "cell"
+require "direction"
 
 class Board
   ROW_COUNT = 4
