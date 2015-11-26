@@ -7,6 +7,14 @@ class Board
   
   def initialize()
     @rows = ROW_COUNT.times.map{|counter| Row.new }
+    @all_cells = []
+    @rows.each do |row|
+      @all_cells.concat(row.cells)
+    end
+  end
+  
+  def empty_cells
+    @all_cells.select {|cell| cell.empty?}
   end
   
   def initialize_board
@@ -25,5 +33,4 @@ class Board
     cell = row.cell(cell_number % ROW_COUNT)
     cell
   end
-  
 end

@@ -3,6 +3,25 @@ require "spec_helper"
 describe Board do
   subject { Board.new }
   
+  describe "#empty_cells" do
+    context "when there are cells with tiles" do
+      let(:result) { subject.empty_cells }
+      let!(:nonempty_cell) do
+        row_with_nonempty_cell = subject.instance_variable_get(:@rows)[rand(Board::ROW_COUNT)]
+        nonempty_cell = row_with_nonempty_cell.cell(rand(Row::CELL_COUNT))
+        nonempty_cell.generate_tile
+        nonempty_cell
+      end 
+      
+      it "returns only the cells without tiles" do
+        target_cells = subject.instance_variable_get(:@all_cells)
+        target_cells.delete(nonempty_cell)
+        
+        expect(result).to eq(target_cells)
+      end
+    end
+  end
+  
   describe "#initialize_board" do
     let(:result) { subject.initialize_board }
     let(:tiles) do
