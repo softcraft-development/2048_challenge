@@ -5,42 +5,42 @@ describe Board do
   
   describe "#initialize_board" do
     let(:result) { subject.initialize_board }
-    let(:nonempty_tiles) do
+    let(:nonempty_cells) do
       result
-      nonempty_tiles = subject.instance_variable_get(:@rows).reduce([]) do |nonempty_for_row, row|
-        row.instance_variable_get(:@tiles).reduce(nonempty_for_row) do |nonempty_for_tile, tile|
-          nonempty_for_tile << tile unless tile.empty?
-          nonempty_for_tile
+      nonempty_cells = subject.instance_variable_get(:@rows).reduce([]) do |nonempty_for_row, row|
+        row.instance_variable_get(:@cells).reduce(nonempty_for_row) do |nonempty_for_cell, cell|
+          nonempty_for_cell << cell unless cell.empty?
+          nonempty_for_cell
         end
       end
     end
     
-    it "fills two tiles with values" do
-      expect(nonempty_tiles.size).to eq(2)
+    it "fills two cells with values" do
+      expect(nonempty_cells.size).to eq(2)
     end
     
-    it "sets the nonempty tiles to have the low or high values" do
-      nonempty_tiles.each do |tile|
-        expect(tile.instance_variable_get(:@value)).to satisfy do |value| 
-          value == Tile::HIGH_GENERATED_TILE_VALUE || value == Tile::LOW_GENERATED_TILE_VALUE
+    it "sets the nonempty cells to have the low or high values" do
+      nonempty_cells.each do |cell|
+        expect(cell.instance_variable_get(:@value)).to satisfy do |value| 
+          value == Cell::HIGH_GENERATED_CELL_VALUE || value == Cell::LOW_GENERATED_CELL_VALUE
         end
       end
     end
   end
   
-  describe "#tile" do
-    let(:result) { subject.tile(absolute_tile_number)}
+  describe "#cell" do
+    let(:result) { subject.cell(absolute_cell_number)}
     
-    context "when the tile number corresponds to a tile anywhere in the board" do
+    context "when the cell number corresponds to a cell anywhere in the board" do
       let(:row_number) { rand(Board::ROW_COUNT) }
-      let(:row_tile_number) { rand(Row::TILE_COUNT) }
-      let(:absolute_tile_number) { (row_number * 4) + row_tile_number }
+      let(:row_cell_number) { rand(Row::CELL_COUNT) }
+      let(:absolute_cell_number) { (row_number * 4) + row_cell_number }
       
-      it "returns the tile for the row and column" do
+      it "returns the cell for the row and column" do
         row = subject.instance_variable_get(:@rows)[row_number]
-        target_tile = row.instance_variable_get(:@tiles)[row_tile_number]
+        target_cell = row.instance_variable_get(:@cells)[row_cell_number]
         
-        expect(result).to be(target_tile)
+        expect(result).to be(target_cell)
       end
     end
   end

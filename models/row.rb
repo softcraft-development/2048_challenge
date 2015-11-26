@@ -1,13 +1,13 @@
-require "tile"
+require "cell"
 
 class Row
-  TILE_COUNT = 4
+  CELL_COUNT = 4
   
   def initialize
-    @tiles = TILE_COUNT.times.map {|counter| Tile.new }
+    @cells = CELL_COUNT.times.map {|counter| Cell.new }
   end
   
-  def tile(tile_number)
-    @tiles[tile_number]
+  def cell(cell_number)
+    @cells[cell_number]
   end
 end
