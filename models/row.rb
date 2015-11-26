@@ -1,5 +1,7 @@
 class Row
+  TILE_COUNT = 4
+  
   def initialize
-    @tiles = 4.times {|counter| Tile.new }
+    @tiles = TILE_COUNT.times {|counter| Tile.new }
   end
 end
