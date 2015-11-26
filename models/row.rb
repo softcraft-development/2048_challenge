@@ -6,4 +6,8 @@ class Row
   def initialize
     @tiles = TILE_COUNT.times {|counter| Tile.new }
   end
+  
+  def tile(tile_number)
+    @tiles[tile_number]
+  end
 end
