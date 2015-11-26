@@ -7,4 +7,10 @@ class Board
   def initialize()
     @rows = ROW_COUNT.times.map{|counter| Row.new }
   end
+  
+  def tile(tile_number)
+    row = @rows[tile_number / ROW_COUNT]
+    tile = row.tile(tile_number % ROW_COUNT)
+    tile
+  end
 end
