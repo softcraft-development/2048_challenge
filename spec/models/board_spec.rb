@@ -15,15 +15,15 @@ describe Board do
     end
   end
   
-  it "sets the first cell set in the right direction to the first four cells" do
-    expect(subject.directions[:right].cell_sets.first.cells).to eq(subject.cells[0..3])
+  it "sets the first cell set in the left direction to the first four cells" do
+    expect(subject.directions[:left].cell_sets.first.cells).to eq(subject.cells[0..3])
   end
 
   it "sets the first cell set in the down direction to the first, fifth, nineth, and thirteenth cells" do
-    expect(subject.directions[:down].cell_sets.first.cells).to eq([subject.cells[0], subject.cells[4], subject.cells[8], subject.cells[12]])
+    expect(subject.directions[:up].cell_sets.first.cells).to eq([subject.cells[0], subject.cells[4], subject.cells[8], subject.cells[12]])
   end
   
-  {:down => :up, :right => :left}.each do |direction, opposite_direction|
+  {:up => :down, :left => :right}.each do |direction, opposite_direction|
     it "sets the #{opposite_direction} cells to be the reverse of the #{direction} cells" do
       subject.directions[direction].cell_sets.each_with_index do |cell_set, index|
         equivalent_cells = subject.directions[opposite_direction].cell_sets[index].cells

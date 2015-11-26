@@ -12,8 +12,8 @@ class Board
   def initialize()
     @cells = CELL_COUNT.times.map { Cell.new }
     
-    right_cells = COLUMN_COUNT.times.map { [] }
-    down_cells = ROW_COUNT.times.map { [] }
+    left_cells = COLUMN_COUNT.times.map { [] }
+    up_cells = ROW_COUNT.times.map { [] }
     
     @cells.each_with_index do |cell, index|
       column = index % COLUMN_COUNT 
@@ -21,18 +21,18 @@ class Board
       # syntax highlighting bug in Textmate
       row = (index / ROW_COUNT)
       
-      right_cells[row] << cell
-      down_cells[column] << cell
+      left_cells[row] << cell
+      up_cells[column] << cell
     end
     
-    right_cell_sets = right_cells.map {|cells| CellSet.new(cells)}
-    down_cell_sets = down_cells.map {|cells| CellSet.new(cells)}
+    left_cell_sets = left_cells.map {|cells| CellSet.new(cells)}
+    up_cell_sets = up_cells.map {|cells| CellSet.new(cells)}
     
     @directions = {}
-    @directions[:right] = Direction.new(right_cell_sets)
-    @directions[:left] = @directions[:right].reverse
-    @directions[:down] = Direction.new(down_cell_sets)
-    @directions[:up] = @directions[:down].reverse
+    @directions[:left] = Direction.new(left_cell_sets)
+    @directions[:right] = @directions[:left].reverse
+    @directions[:up] = Direction.new(up_cell_sets)
+    @directions[:down] = @directions[:up].reverse
   end
   
   def empty_cells
