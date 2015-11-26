@@ -21,7 +21,7 @@ describe Board do
     
     it "sets the nonempty cells to have the low or high values" do
       nonempty_cells.each do |cell|
-        expect(cell.instance_variable_get(:@value)).to satisfy do |value| 
+        expect(cell.tile).to satisfy do |value| 
           value == Cell::HIGH_GENERATED_CELL_VALUE || value == Cell::LOW_GENERATED_CELL_VALUE
         end
       end

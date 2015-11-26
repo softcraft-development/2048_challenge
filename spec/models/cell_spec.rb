@@ -4,7 +4,7 @@ describe Cell do
   subject { Cell.new }
   
   describe "#generate_value" do
-    let(:result) { subject.generate_value; subject.instance_variable_get(:@value)}
+    let(:result) { subject.generate_value; subject.tile}
     
     context "when generating a low value" do
       before { allow(subject).to receive(:rand).and_return Cell::PROBABILITY_OF_LOW_GENERATED_CELL }
@@ -21,7 +21,7 @@ describe Cell do
     end
     
     context "when the cell already has a value" do
-      before { subject.instance_variable_set(:@value, rand(2048)) }
+      before { subject.instance_variable_set(:@tile, Tile.new) }
       it "raises an error" do
         expect{result}.to raise_error(/empty/)
       end
@@ -31,17 +31,24 @@ describe Cell do
   describe "#empty?" do
     let(:result) { subject.empty? }
     context "when the cell has no value" do
-      before { subject.instance_variable_set(:@value, nil)}
+      before { subject.instance_variable_set(:@tile, nil)}
       it "is true" do
         expect(result).to eq(true)
       end
     end
 
     context "when the cell has a value" do
-      before { subject.instance_variable_set(:@value, rand(2048))}
+      before { subject.instance_variable_set(:@tile, Tile.new)}
       it "is false" do
         expect(result).to eq(false)
       end
     end
   end
+  
+  # describe "#merge" do
+  #   context "when the cell is empty" do
+  #   end
+  #
+  #   context "when the cell "
+  # end
 end
