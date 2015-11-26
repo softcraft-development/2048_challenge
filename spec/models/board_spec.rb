@@ -5,24 +5,25 @@ describe Board do
   
   describe "#initialize_board" do
     let(:result) { subject.initialize_board }
-    let(:nonempty_cells) do
+    let(:tiles) do
       result
-      nonempty_cells = subject.instance_variable_get(:@rows).reduce([]) do |nonempty_for_row, row|
-        row.instance_variable_get(:@cells).reduce(nonempty_for_row) do |nonempty_for_cell, cell|
-          nonempty_for_cell << cell unless cell.empty?
-          nonempty_for_cell
+      tiles = subject.instance_variable_get(:@rows).reduce([]) do |tiles_for_board, row|
+        row.instance_variable_get(:@cells).reduce(tiles_for_board) do |tiles_for_row, cell|
+          tiles_for_row << cell.tile unless cell.empty?
+          tiles_for_row
         end
+        tiles_for_board
       end
     end
     
-    it "fills two cells with values" do
-      expect(nonempty_cells.size).to eq(2)
+    it "fills two cells with tiles" do
+      expect(tiles.size).to eq(2)
     end
     
-    it "sets the nonempty cells to have the low or high values" do
-      nonempty_cells.each do |cell|
-        expect(cell.tile).to satisfy do |value| 
-          value == Cell::HIGH_GENERATED_CELL_VALUE || value == Cell::LOW_GENERATED_CELL_VALUE
+    it "sets the tiles to have the low or high values" do
+      tiles.each do |tile|
+        expect(tile.value).to satisfy do |value| 
+          value == Tile::HIGH_GENERATED_VALUE || value == Tile::LOW_GENERATED_VALUE
         end
       end
     end

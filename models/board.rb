@@ -16,7 +16,7 @@ class Board
         t = cell(cell_number)
       end until (t.empty?)
       
-      t.generate_value
+      t.generate_tile
     end
   end
 
