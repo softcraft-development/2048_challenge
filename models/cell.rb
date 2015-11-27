@@ -1,9 +1,9 @@
 require "tile"
 
 class Cell
-  attr_reader :tile
-  def initialize
-    @tile = nil
+  attr_accessor :tile
+  def initialize(tile = nil)
+    @tile = tile
   end
   
   def generate_tile
