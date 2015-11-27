@@ -32,6 +32,17 @@ describe Board do
     end
   end
   
+  describe "#insert_random_tile" do
+    let!(:prior_tiles) { subject.cells.map{|cell| cell.tile}.compact }
+    let(:result) { subject.insert_random_tile }
+    
+    it "creates a new tile" do
+      result
+      tiles = subject.cells.map{|cell| cell.tile}.compact
+      expect(tiles.size).to eq(prior_tiles.size + 1)
+    end
+  end
+  
   describe "#win?" do
     let(:result) { subject.win? }
     context "when a cell wins" do

@@ -35,6 +35,10 @@ class Board
     @directions[:down] = @directions[:up].reverse
   end
   
+  def insert_random_tile
+    empty_cells.sample.generate_tile
+  end
+  
   def win?
     @cells.any? {|cell| cell.win? }
   end
