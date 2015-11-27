@@ -43,11 +43,16 @@ begin
   when "q"
     exit
   end
-
-  dir = board.directions[direction]
-  if dir.move_possible?
-    dir.move
-    board.insert_random_tile
+  
+  if direction
+    dir = board.directions[direction]
+    if dir.move_possible?
+      puts "Move [#{direction}]"
+      dir.move
+      board.insert_random_tile
+    else
+      puts "Move [#{direction}] not allowed."
+    end
   end
   board.print_board
 end while (!board.win? && board.move_possible? )
