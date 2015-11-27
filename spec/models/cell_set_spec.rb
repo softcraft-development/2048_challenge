@@ -47,21 +47,43 @@ describe CellSet do
     end
     
     context "when there are two tiles" do
-      context "that are mergeable" do
-        let(:cells) { [Cell.new(Tile.new(tile_value)), Cell.new(Tile.new(tile_value))] }
+      context "that are adjacent" do
+        context "that are mergeable" do
+          let(:cells) { [Cell.new(Tile.new(tile_value)), Cell.new(Tile.new(tile_value))] }
         
-        it "merges the tiles towards the edge" do
-          expect(cell_values).to eq([tile_value * 2, nil])
+          it "merges the tiles towards the edge" do
+            expect(cell_values).to eq([tile_value * 2, nil])
+          end
+        end
+      
+        context "that are not mergeable" do
+          let(:first_tile) { Tile.new(tile_value)}
+          let(:second_tile) { Tile.new(tile_value + 1)}
+          let(:cells) { [Cell.new(first_tile), Cell.new(second_tile)] }
+        
+          it "leaves the tiles in place" do
+            expect(cell_values).to eq([tile_value, tile_value + 1])
+          end
         end
       end
       
-      context "that are not mergeable" do
-        let(:first_tile) { Tile.new(tile_value)}
-        let(:second_tile) { Tile.new(tile_value + 1)}
-        let(:cells) { [Cell.new(first_tile), Cell.new(second_tile)] }
+      context "that are split by an empty cell" do
+        context "that are mergeable" do
+          let(:cells) { [Cell.new(Tile.new(tile_value)), Cell.new, Cell.new(Tile.new(tile_value))] }
         
-        it "leaves the tiles in place" do
-          expect(cell_values).to eq([tile_value, tile_value + 1])
+          it "merges the tiles towards the edge" do
+            expect(cell_values).to eq([tile_value * 2, nil, nil])
+          end
+        end
+      
+        context "that are not mergeable" do
+          let(:first_tile) { Tile.new(tile_value)}
+          let(:second_tile) { Tile.new(tile_value + 1)}
+          let(:cells) { [Cell.new(first_tile), Cell.new, Cell.new(second_tile)] }
+        
+          it "moved the far the tile towards the edge" do
+            expect(cell_values).to eq([tile_value, tile_value + 1, nil])
+          end
         end
       end
     end
