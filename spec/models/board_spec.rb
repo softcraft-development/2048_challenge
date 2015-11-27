@@ -123,6 +123,14 @@ describe Board do
     test_board(before, after, :down)
   end
   
+  describe "#print_board" do
+    it "prints the board to standard output" do
+      expect(subject).to receive(:print).at_least(:once)
+      expect(subject).to receive(:puts).at_least(:once)
+      subject.print_board
+    end
+  end
+  
   describe "#insert_random_tile" do
     let!(:prior_tiles) { subject.cells.map{|cell| cell.tile}.compact }
     let(:result) { subject.insert_random_tile }

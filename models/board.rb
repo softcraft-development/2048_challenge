@@ -35,6 +35,15 @@ class Board
     @directions[:down] = @directions[:up].reverse
   end
   
+  def print_board
+    @directions[:left].cell_sets.map do |cell_set|
+      cell_set.cells.map do |cell|
+        print "[#{(cell.value.to_s).rjust(4)}]"
+      end
+      puts ""
+    end
+  end
+  
   def insert_random_tile
     empty_cells.sample.generate_tile
   end
