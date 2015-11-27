@@ -14,6 +14,16 @@ describe Direction do
   
   subject { Direction.new(cell_sets) }
   
+  describe "#move" do
+    let(:result) { subject.move }
+    it "moves each cell set" do
+      cell_sets.each do |cell_set|
+        expect(cell_set).to receive(:move)
+      end
+      result
+    end
+  end
+  
   describe "#move_possible?" do
     let(:result) { subject.move_possible? }
     
