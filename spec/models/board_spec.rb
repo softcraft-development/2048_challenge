@@ -44,7 +44,6 @@ describe Board do
         index += 1
       end
     end
-    byebug
     
     subject.directions[direction].move
     
@@ -60,6 +59,68 @@ describe Board do
         index += 1
       end
     end
+  end
+  
+  it "makes the example left move" do
+    before = [
+      [2,	2, nil, 4],
+      [4, 2, 4, 4],
+      [2, 2, nil, 2],
+      [nil, nil, nil, nil]
+    ]
+    after = [
+      [4, 4, nil, nil],
+      [4, 2, 8, nil],
+      [4, 2, nil, nil],
+    ]
+    test_board(before, after, :left)
+  end
+
+  it "makes the example right move" do
+    before = [
+      [4, 2, nil, 2],
+      [4, 2, 4, 4],
+      [2, 2, nil, 2],
+      [nil, nil, nil, nil]
+    ]
+    after = [
+      [nil, nil, 4, 4],
+      [nil, 4, 2, 8],
+      [nil, nil, 2, 4],
+    ]
+    test_board(before, after, :right)
+  end
+
+  it "makes the example up move" do
+    before = [
+      [2,	2, nil, 2],
+      [4, 2, 4, 4],
+      [nil, nil, nil, nil],
+      [nil, nil, nil, nil]
+    ]
+    after = [
+      [2,	4, 4, 2],
+      [4, nil, nil, 4],
+      [nil, nil, nil, nil],
+      [nil, nil, nil, nil]
+    ]
+    test_board(before, after, :up)
+  end
+  
+  it "makes the example down move" do
+    before = [
+      [2,	2, nil, 2],
+      [4, 2, 4, 4],
+      [nil, nil, nil, nil],
+      [nil, nil, nil, nil]
+    ]
+    after = [
+      [nil, nil, nil, nil],
+      [nil, nil, nil, nil],
+      [2,	nil, nil, 2],
+      [4, 4, 4, 4],
+    ]
+    test_board(before, after, :down)
   end
   
   describe "#insert_random_tile" do
