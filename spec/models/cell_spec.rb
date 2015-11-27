@@ -3,6 +3,31 @@ require "spec_helper"
 describe Cell do
   subject { Cell.new }
   
+  describe "#win?" do
+    let(:result) { subject.win?}
+    
+    context "when the cell is empty" do
+      subject { Cell.new(nil) }
+      it "is false" do
+        expect(result).to eq(false)
+      end
+    end
+    
+    context "when the cell tile has the goal value" do
+      subject { Cell.new(Tile.new(Cell::GOAL)) }
+      it "is true" do
+        expect(result).to eq(true)
+      end
+    end
+    
+    context "when the cell tile does not have the goal value" do
+      subject { Cell.new(Tile.new(Cell::GOAL - 1)) }
+      it "is false" do
+        expect(result).to eq(false)
+      end
+    end
+  end
+  
   describe "#merge" do
     let(:tile_value) { rand(2048) }
     let(:tile) { Tile.new(tile_value) }

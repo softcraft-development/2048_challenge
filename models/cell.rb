@@ -1,9 +1,16 @@
 require "tile"
 
 class Cell
+  GOAL = 2048
+  
   attr_accessor :tile
   def initialize(tile = nil)
     @tile = tile
+  end
+  
+  def win?
+    return true if @tile && @tile.value == GOAL
+    return false
   end
   
   def merge(tile)
