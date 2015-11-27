@@ -5,29 +5,35 @@ describe CellSet do
   subject { CellSet.new(cells) }
   
   describe "#move" do
+    let(:tile_value) { rand(2048)}
     let(:result) { subject.move }
+    let(:cell_values) do
+      result
+      subject.cells.map do |cell|
+        if cell.empty?
+          nil
+        else
+          cell.tile.value
+        end
+      end
+    end
     
     context "when there are no tiles" do
       let(:cells) { [Cell.new, Cell.new] }
       
       it "leaves all cells as empty" do
-        result
-        subject.cells.each do |cell|
-          expect(cell.empty?).to eq(true)
-        end
+        expect(cell_values).to eq([nil, nil])
       end
     end
     
     context "when there is one tile" do
-      let(:tile) { Tile.new(rand(2048)) }
+      let(:tile) { Tile.new(tile_value) }
 
       context "at the near edge" do
         let(:cells) { [Cell.new(tile), Cell.new] }
         
         it "leaves the tile in place" do
-          result
-          tiles = subject.cells.map{|cell| cell.tile}
-          expect(tiles).to eq([tile, nil])
+          expect(cell_values).to eq([tile_value, nil])
         end
       end
       
@@ -35,40 +41,30 @@ describe CellSet do
         let(:cells) { [Cell.new, Cell.new(tile)] }
 
         it "moves the tile to the near edge" do
-          result
-          tiles = subject.cells.map{|cell| cell.tile}
-          expect(tiles).to eq([tile, nil])
+          expect(cell_values).to eq([tile_value, nil])
         end
       end
     end
     
     context "when there are two tiles" do
       context "that are mergeable" do
-        let(:tile_value) { rand(2048)}
         let(:cells) { [Cell.new(Tile.new(tile_value)), Cell.new(Tile.new(tile_value))] }
         
         it "merges the tiles towards the edge" do
-          result
-          tile_values = subject.cells.map do |cell| 
-            if cell.tile
-              cell.tile.value
-            else
-              nil
-            end
-          end
-          expect(tile_values).to eq([tile_value * 2, nil])
+          expect(cell_values).to eq([tile_value * 2, nil])
         end
       end
       
       context "that are not mergeable" do
-        let(:first_tile) { Tile.new(rand(2048))}
-        let(:second_tile) { Tile.new(first_tile.value + 1)}
+        let(:first_tile) { Tile.new(tile_value)}
+        let(:second_tile) { Tile.new(tile_value + 1)}
         let(:cells) { [Cell.new(first_tile), Cell.new(second_tile)] }
         
         it "leaves the tiles in place" do
-          result
-          tiles = subject.cells.map{|cell| cell.tile}
-          expect(tiles).to eq([first_tile, second_tile])
+          expect(cell_values).to eq([tile_value, tile_value + 1])
+        end
+      end
+    end
         end
       end
     end
