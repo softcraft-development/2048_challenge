@@ -32,6 +32,28 @@ describe Board do
     end
   end
   
+  describe "#win?" do
+    let(:result) { subject.win? }
+    context "when a cell wins" do
+      before { allow(subject.cells.sample).to receive(:win?).and_return(true) }
+      it "is true" do
+        expect(result).to eq(true)
+      end
+    end
+    
+    context "when no cell wins" do
+      before do
+        subject.cells.each do |cell|
+          allow(cell).to receive(:win?).and_return(false)
+        end
+      end
+      
+      it "is false" do
+        expect(result).to eq(false)
+      end
+    end
+  end
+  
   describe "#move_possible?" do
     let(:result) { subject.move_possible? }
     context "when any direction has a move possible" do

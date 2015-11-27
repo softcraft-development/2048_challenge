@@ -35,6 +35,10 @@ class Board
     @directions[:down] = @directions[:up].reverse
   end
   
+  def win?
+    @cells.any? {|cell| cell.win? }
+  end
+  
   def move_possible?
     [:left, :up, :right, :down].any? do |direction|
       @directions[direction].move_possible?
