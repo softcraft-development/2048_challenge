@@ -1,7 +1,8 @@
+# run with: bundle exec ruby aria_2048.rb
 require_relative "initialization"
 
 # Reading arrow keys from STDIN is surprisingly difficult for Ruby
-# This code is borrowed from https://gist.github.com/acook/4190379
+# The read_char code is borrowed from https://gist.github.com/acook/4190379
 require 'io/console'
 def read_char
   STDIN.echo = false

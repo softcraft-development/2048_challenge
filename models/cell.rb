@@ -1,6 +1,7 @@
 require "tile"
 
 class Cell
+  # Modify this to play a longer/shorter game
   GOAL = 2048
   
   attr_accessor :tile
