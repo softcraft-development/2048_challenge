@@ -6,6 +6,10 @@ class Direction
     @cell_sets = cell_sets
   end
   
+  def move_possible?
+    @cell_sets.any? { |cell_set| cell_set.move_possible? }
+  end
+  
   def reverse
     cell_sets = @cell_sets.map do |cell_set|
       cell_set.reverse
