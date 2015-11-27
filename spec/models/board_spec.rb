@@ -32,6 +32,36 @@ describe Board do
     end
   end
   
+  def test_board(before, after, direction)
+    index = 0
+    before.each do |row|
+      row.each do |cell_value|
+        if cell_value
+          subject.cells[index].tile = Tile.new(cell_value)
+        else
+          subject.cells[index].tile = nil
+        end
+        index += 1
+      end
+    end
+    byebug
+    
+    subject.directions[direction].move
+    
+    index = 0
+    after.each do |row|
+      row.each do |cell_value|
+        cell = subject.cells[index]
+        if cell_value
+          expect(cell.tile.value).to eq(cell_value)
+        else
+          expect(cell.tile).to eq(nil)
+        end
+        index += 1
+      end
+    end
+  end
+  
   describe "#insert_random_tile" do
     let!(:prior_tiles) { subject.cells.map{|cell| cell.tile}.compact }
     let(:result) { subject.insert_random_tile }
