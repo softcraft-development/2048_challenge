@@ -3,6 +3,45 @@ require "spec_helper"
 describe Cell do
   subject { Cell.new }
   
+  describe "#merge" do
+    let(:tile_value) { rand(2048) }
+    let(:tile) { Tile.new(tile_value) }
+    let(:result) { subject.merge(tile) }
+    
+    context "when the cell is empty" do
+      subject { Cell.new(nil) }
+      
+      it "assigns the tile to the cell" do
+        result
+        expect(subject.tile).to be(tile)
+      end
+    end
+    
+    context "when the cell has a preexisting tile" do
+      subject { Cell.new(preexisting_tile) }
+      context "and the tiles share a value" do
+        let(:preexisting_tile) { Tile.new(tile.value)}
+        
+        it "preserves the preexisting tile instance" do
+          result
+          expect(subject.tile).to be(preexisting_tile)
+        end
+        
+        it "combines the value of the tiles" do
+          result
+          expect(subject.tile.value).to eq(tile_value * 2)
+        end
+      end
+
+      context "and the tiles do not share a value" do
+        let(:preexisting_tile) { Tile.new(tile.value + 1)}
+        it "raises an error" do
+          expect{result}.to raise_error(/Cannot merge/i)
+        end
+      end
+    end
+  end
+  
   describe "#mergable_with?" do
     let(:tile) { Tile.new(rand(2048)) }
     let(:result) { subject.mergeable_with?(tile) }

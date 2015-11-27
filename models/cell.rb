@@ -6,6 +6,15 @@ class Cell
     @tile = tile
   end
   
+  def merge(tile)
+    if @tile == nil
+      @tile = tile
+    else
+      raise "Cannot merge tiles with differing values" unless @tile.value == tile.value
+      @tile.value += tile.value
+    end
+  end
+  
   def mergeable_with?(tile)
     return true if empty?
     return true if self.tile.value == tile.value
@@ -19,15 +28,5 @@ class Cell
   
   def empty?
     @tile == nil
-  end
-  
-  def merge(merging_value)
-    raise "Incompatible value: #{merging_value}" if @tile != nil && @tile != merging_value
-    @tile += merging_value
-  end
-  
-  def merge_into(destination_cell)
-    destination_cell.value
-    
   end
 end
