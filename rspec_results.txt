@@ -1,0 +1,154 @@
+
+Board
+  creates cells for each intersection of row and column
+  sets the first cell set in the left direction to the first four cells
+  sets the first cell set in the down direction to the first, fifth, nineth, and thirteenth cells
+  sets the down cells to be the reverse of the up cells
+  sets the right cells to be the reverse of the left cells
+  makes the example left move
+  makes the example right move
+  makes the example up move
+  makes the example down move
+  for the direction named right
+    creates a Direction
+  for the direction named left
+    creates a Direction
+  for the direction named down
+    creates a Direction
+  for the direction named up
+    creates a Direction
+  #print_board
+    prints the board to standard output
+  #insert_random_tile
+    creates a new tile
+  #win?
+    when a cell wins
+      is true
+    when no cell wins
+      is false
+  #move_possible?
+    when any direction has a move possible
+      is true
+    when no direction has a move possible
+      is false
+  #empty_cells
+    when there are cells with tiles
+      returns only the cells without tiles
+  #initialize_board
+    fills two cells with tiles
+    sets the tiles to have the low or high values
+
+CellSet
+  #move
+    when there are no tiles
+      leaves all cells as empty
+    when there is one tile
+      at the near edge
+        leaves the tile in place
+      away from the near edge
+        moves the tile to the near edge
+    when there are two tiles
+      that are adjacent
+        that are mergeable
+          merges the tiles towards the edge
+        that are not mergeable
+          leaves the tiles in place
+      that are split by an empty cell
+        that are mergeable
+          merges the tiles towards the edge
+        that are not mergeable
+          moved the far tile towards the edge
+      that are preceeded by an empty cell
+        that are mergeable
+          merges the tiles towards the edge
+        that are not mergeable
+          moved the tiles towards the edge
+    when there are three tiles
+      that are not mergeable
+        leaves the tiles in place
+      that are all mergeable
+        merges the first two tiles and moves the third to the second cell
+      that split two mergable tiles
+        leaves the tiles in place
+  #move_possible?
+    when there are no tiles
+      is false
+    when there is one tile
+      on the edge
+        is false
+      off the edge
+        is true
+    when there are no empty cells in the set
+      and adjacent cells have a mergeable tiles
+        is true
+      and non-adjacent cells have a mergeable tiles
+        is false
+      and no cells are mergeable
+        is false
+  #reverse
+    returns a CellSet
+    returns a new instance
+    sets the cells to the opposite order
+
+Cell
+  #value
+    when the cell is empty
+      is nil
+    when the cell has a tile
+      is the tile value
+  #win?
+    when the cell is empty
+      is false
+    when the cell tile has the goal value
+      is true
+    when the cell tile does not have the goal value
+      is false
+  #merge
+    when the cell is empty
+      assigns the tile to the cell
+    when the cell has a preexisting tile
+      and the tiles share a value
+        preserves the preexisting tile instance
+        combines the value of the tiles
+      and the tiles do not share a value
+        raises an error
+  #mergable_with?
+    when the cell is empty
+      is true
+    when the cell has a tile that matches the tile value
+      is true
+    when the cell has a tile does not match the tile value
+      is false
+  #generate_tile
+    when the cell already has a value
+      raises an error
+  #empty?
+    when the cell has no value
+      is true
+    when the cell has a value
+      is false
+
+Direction
+  #move
+    moves each cell set
+  #move_possible?
+    when a cell set has a move possible
+      is true
+    when no cell sets have a move possible
+      is false
+  #reverse
+    returns a Direction
+    returns a new instance
+    reverses the order of the cells in the cell sets
+
+Tile
+  ::generate
+    returns a Tile
+    when generating a low value
+      is the low value
+    when generating a high value
+      is the low value
+
+Finished in 0.0636 seconds (files took 0.27686 seconds to load)
+67 examples, 0 failures
+
