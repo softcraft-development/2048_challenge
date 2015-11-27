@@ -8,6 +8,10 @@ class Cell
     @tile = tile
   end
   
+  def value
+    @tile ? @tile.value : nil
+  end
+  
   def win?
     return true if @tile && @tile.value == GOAL
     return false

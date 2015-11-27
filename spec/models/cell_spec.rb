@@ -3,6 +3,25 @@ require "spec_helper"
 describe Cell do
   subject { Cell.new }
   
+  describe "#value" do
+    let(:result) { subject.value }
+    
+    context "when the cell is empty" do
+      subject { Cell.new(nil) }
+      it "is nil" do
+        expect(result).to eq(nil)
+      end
+    end
+    
+    context "when the cell has a tile" do
+      let(:tile) { Tile.new(rand(2048)) }
+      subject { Cell.new(tile) }
+      it "is the tile value" do
+        expect(result).to eq(tile.value)
+      end
+    end
+  end
+  
   describe "#win?" do
     let(:result) { subject.win?}
     
