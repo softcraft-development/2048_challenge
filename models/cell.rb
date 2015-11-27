@@ -6,6 +6,12 @@ class Cell
     @tile = tile
   end
   
+  def mergeable_with?(tile)
+    return true if empty?
+    return true if self.tile.value == tile.value
+    return false
+  end
+    
   def generate_tile
     raise "Cannot generate a new tile in a nonempty cell" unless empty?
     @tile = Tile.generate
