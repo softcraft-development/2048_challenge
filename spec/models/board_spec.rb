@@ -32,6 +32,31 @@ describe Board do
     end
   end
   
+  describe "#move_possible?" do
+    let(:result) { subject.move_possible? }
+    context "when any direction has a move possible" do
+      before do
+        allow(subject.directions[:up]).to receive(:move_possible?).and_return(true)
+      end
+      
+      it "is true" do
+        expect(result).to eq(true)
+      end
+    end
+    
+    context "when no direction has a move possible" do
+      before do
+        subject.directions.values.each do |direction|
+          allow(direction).to receive(:move_possible?).and_return(false)
+        end
+      end
+
+      it "is false" do
+        expect(result).to eq(false)
+      end
+    end
+  end
+  
   describe "#empty_cells" do
     context "when there are cells with tiles" do
       let(:result) { subject.empty_cells }
