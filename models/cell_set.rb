@@ -8,13 +8,18 @@ class CellSet
   
   def move
     prior_cell = nil
-    @cells.each_with_index do |cell, index|
-      remaining_cells = @cells[(index + 1)..-1]
-      next_nonempty_cell = remaining_cells.find { |cell| !cell.empty?}
-      if next_nonempty_cell && cell.mergeable_with?(next_nonempty_cell.tile)
-        cell.merge(next_nonempty_cell.tile)
-        next_nonempty_cell.tile = nil
+    tiles = @cells.map { |cell| cell.tile}.compact
+    new_tiles = []
+    begin
+      tile = tiles.shift
+      new_tiles << tile
+      if tiles.first && tiles.first.value == tile.value
+        tile.value += tiles.first.value
+        tiles.shift
       end
+    end while(tiles.any?)
+    @cells.each do |cell|
+      cell.tile = new_tiles.shift
     end
   end
   
