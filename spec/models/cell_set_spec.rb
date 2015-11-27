@@ -145,11 +145,30 @@ describe CellSet do
   
   describe "#move_possible?" do
     let(:result) { subject.move_possible? }
-    context "when there is an empty cell in the set" do
-      let(:cells) { [Cell.new(Tile.new(rand(2048))), Cell.new]}
+    
+    context "when there are no tiles" do
+      let(:cells) { [Cell.new, Cell.new]}
       
-      it "is true" do
-        expect(result).to eq(true)
+      it "is false" do
+        expect(result).to eq(false)
+      end
+    end
+    
+    context "when there is one tile" do
+      context "on the edge" do
+        let(:cells) { [Cell.new(Tile.new(rand(2048))), Cell.new]}
+
+        it "is false" do
+          expect(result).to eq(false)
+        end
+      end
+      
+      context "off the edge" do
+        let(:cells) { [Cell.new, Cell.new(Tile.new(rand(2048)))]}
+
+        it "is true" do
+          expect(result).to eq(true)
+        end
       end
     end
     

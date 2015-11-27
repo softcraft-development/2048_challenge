@@ -26,15 +26,16 @@ class CellSet
   def move_possible?
     prior_cell = nil
     @cells.any? do |cell|
-      return true if cell.empty?
-      
-      if prior_cell
-        mergeable = prior_cell.mergeable_with?(cell.tile)
+      movable = false
+      if cell.empty? 
+        movable = false
+      elsif prior_cell
+        movable = prior_cell.mergeable_with?(cell.tile) 
       else
-        mergeable = false
+        movable = false
       end
       prior_cell = cell
-      mergeable
+      movable
     end
   end
   
