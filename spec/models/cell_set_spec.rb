@@ -65,6 +65,37 @@ describe CellSet do
         end
       end
     end
+    
+    context "when there are three tiles" do
+      let(:cells) { [Cell.new(first_tile), Cell.new(second_tile), Cell.new(third_tile)] }
+
+      context "that are not mergeable" do
+        let(:first_tile) { Tile.new(tile_value)}
+        let(:second_tile) { Tile.new(tile_value + 1)}
+        let(:third_tile) { Tile.new(tile_value + 2)}
+        
+        it "leaves the tiles in place" do
+          expect(cell_values).to eq([tile_value, tile_value + 1, tile_value + 2])
+        end
+      end
+      
+      context "that are all mergeable" do
+        let(:first_tile) { Tile.new(tile_value)}
+        let(:second_tile) { Tile.new(tile_value)}
+        let(:third_tile) { Tile.new(tile_value)}
+        
+        it "merges the first two tiles and moves the third to the second cell" do
+          expect(cell_values).to eq([tile_value * 2, tile_value, nil])
+        end
+      end
+      
+      context "that split two mergable tiles" do
+        let(:first_tile) { Tile.new(tile_value)}
+        let(:second_tile) { Tile.new(tile_value + 1)}
+        let(:third_tile) { Tile.new(tile_value)}
+        
+        it "leaves the tiles in place" do
+          expect(cell_values).to eq([tile_value, tile_value + 1, tile_value])
         end
       end
     end

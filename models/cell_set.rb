@@ -10,14 +10,10 @@ class CellSet
     prior_cell = nil
     @cells.each_with_index do |cell, index|
       remaining_cells = @cells[(index + 1)..-1]
-      remaining_cells.each do |next_cell|
-        unless next_cell.empty?
-          if cell.mergeable_with?(next_cell.tile)
-            cell.merge(next_cell.tile)
-            next_cell.tile = nil
-            break
-          end
-        end
+      next_nonempty_cell = remaining_cells.find { |cell| !cell.empty?}
+      if next_nonempty_cell && cell.mergeable_with?(next_nonempty_cell.tile)
+        cell.merge(next_nonempty_cell.tile)
+        next_nonempty_cell.tile = nil
       end
     end
   end
