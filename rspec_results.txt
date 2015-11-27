@@ -103,15 +103,6 @@ Cell
       is true
     when the cell tile does not have the goal value
       is false
-  #merge
-    when the cell is empty
-      assigns the tile to the cell
-    when the cell has a preexisting tile
-      and the tiles share a value
-        preserves the preexisting tile instance
-        combines the value of the tiles
-      and the tiles do not share a value
-        raises an error
   #mergable_with?
     when the cell is empty
       is true
@@ -149,6 +140,5 @@ Tile
     when generating a high value
       is the low value
 
-Finished in 0.0636 seconds (files took 0.27686 seconds to load)
-67 examples, 0 failures
-
+Finished in 0.07025 seconds (files took 0.24534 seconds to load)
+63 examples, 0 failures
