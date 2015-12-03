@@ -2,7 +2,7 @@ require "cell"
 
 # Cell sets always move the tiles "forward" (ie: towards the start of the array).
 # This allows us to perform the same actions on the component cells regardless of the 
-# direction we
+# direction we are actually moving on the board.
 # If you wanted to get crazy, you could define a cell set with any arbitrary collection of cells.
 # Diagonal cell sets on an odd-numbered-sized grid might be interesting.
 class CellSet
