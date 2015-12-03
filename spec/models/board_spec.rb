@@ -19,7 +19,7 @@ describe Board do
     expect(subject.directions[:left].cell_sets.first.cells).to eq(subject.cells[0..3])
   end
 
-  it "sets the first cell set in the down direction to the first, fifth, nineth, and thirteenth cells" do
+  it "sets the first cell set in the up direction to the first, fifth, nineth, and thirteenth cells" do
     expect(subject.directions[:up].cell_sets.first.cells).to eq([subject.cells[0], subject.cells[4], subject.cells[8], subject.cells[12]])
   end
   
